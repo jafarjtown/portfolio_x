@@ -8,6 +8,8 @@ from tesla.utils import get_pages, config_api_route
 
 BASE_DIR = Pa(__file__).resolve().parent.parent 
 
+TeslaApp.debug = False
+
 if os.path.isdir(BASE_DIR / 'pages'):
     TeslaApp.frontend = BASE_DIR / 'pages'
 if os.path.isdir(BASE_DIR / 'controls'):
