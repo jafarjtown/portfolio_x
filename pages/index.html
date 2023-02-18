@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jafar Idris</title>
+    <link rel="stylesheet" href="{{ static_url('css/default.css') }}">
+
+    <link id="theme-style" rel="stylesheet" href="">
+
+    <script src="{{ static_url('js/script.js') }}" defer></script>
+</head>
+<body>
+<div class="loading">
+    <h3>Welcome here...</h3>
+    <p>In the Name of Allah, the Most
+        Gracious, the Most Merciful.</p>
+    <p>All Jhe praises and thanks be to Allah,
+        the Lord of the 'Alamin (mankind, jinn and
+        all that exists).</p>
+    <p>The Most Gracious, the Most Merciful.</p>
+    <p>The Only Owner (and the Only Ruling Judge) of the Day of Recompense (i.e. the
+        Day of Resurrection).</p>
+    
+    <p>You (Alone) we worship, and You
+        (Alone) we ask for help (for each and
+        everything).</p>
+    <p>Guide us to the Straight Way.</p>
+    <p>The Way of those on whom You have
+        bestowed Your Grace, not (the way) of
+        those who earned Your Anger.</p>
+    <hr>
+    <p>
+        <a href="/">Reload if nothing happens.</a>
+    </p>
+</div>
+    <section class="s1">
+        <div class="main-container">
+            
+            <div class="greeting-wrapper">
+                <h1>Hey! I'm Jafar Idris Tesla</h1>
+            </div>
+          {% include 'components/nav.html' %}
+        </div>
+    </section>
+
+    <section class="s2">
+        <div class="main-container">
+            <div class="about-wrapper">
+                <div class="about-me">
+                    <h4>More about me</h4>
+                    <p>I built project just to trickle my brain and love teaching others how they're made.</p>
+                    <p>This website is built with Tesla web,one of my great project.</p>
+                    <p>while i keep busy studying my boring course, I still take interviews in search of great teams & projects that interest me</p>
+                    <hr>
+                    <h4>TOP EXPERTISE</h4>
+                    <p>Fullstack developer with primary focus on Django + React: <a href="#">Download Resume</a></p>
+                    <div id="skills">
+                        <ul>
+                            <li>Python</li>
+                            <li>Django</li>
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>GoLang</li>
+                        </ul>
+
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>git</li>
+                            <li>Heroku</li>
+                            <li>CMD</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="boxs-wrapper">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="s1">
+        <div class="main-container">
+            <h3 style="text-align: center;">some of my past projects</h3>
+
+            <div class="post-wrapper">
+
+                <div>
+                    <div class="post">
+                        <img class="thumbnail" src="jafar.jpg" alt="">
+                        <div class="post-preview">
+                            <h6 class="post-title">Post title</h6>
+                            <p class="post-intro">
+                                this is a sentence, some more texts here
+                            </p>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="post">
+                        <img class="thumbnail" src="jafar.jpg" alt="">
+                        <div class="post-preview">
+                            <h6 class="post-title">Post title</h6>
+                            <p class="post-intro">
+                                this is a sentence, some more texts here
+                            </p>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+  {% include 'components/footer.html' %}
+<script>
+    
+const themeDots = document.querySelectorAll('.theme-dot')
+
+theme = localStorage.getItem('tesla-site-theme')
+if(theme){
+    setTheme(theme)
+}
+
+;[...themeDots].forEach(dot => {
+    dot.addEventListener('click', () => {
+        let mode = dot.dataset.mode
+        setTheme(mode)
+    })
+})
+
+
+function setTheme(mode){
+    localStorage.setItem('tesla-site-theme', mode)
+     let themeStyle = document.getElementById('theme-style')
+     themeStyle.href = `{{ static_url('css/${mode}.css') }}`
+     console.log(themeStyle)
+
+}
+</script>
+</body>
+</html>
