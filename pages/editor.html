@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jafar Idris</title>
+    <link rel="shortcut icon" href="{{ static_url('imgs/icon.jpg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ static_url('css/default.css') }}">
+
+    <link id="theme-style" rel="stylesheet" href="">
+
+    <!-- <script src="{{ static_url('js/script.js') }}" defer></script> -->
+    <script src="{{ static_url('js/editor.js') }}" defer></script>
+</head>
+
+<body>
+    <div class="alert">
+        <p>This is just a simple place to run your python code</p>
+        <p>things you can't do here</p>
+        <ul>
+            <li>use input()</li>
+        </ul>
+    </div>
+    <section class="s1">
+        <div class="main-container">
+            <div class="nav-wrapper" id="nav">
+                <div class="dots-wrapper">
+                    <div data-mode="light" id="light-mode" class="dot theme-dot"></div>
+                    <div data-mode="blue" id="blue-mode" class="dot theme-dot"></div>
+                    <div data-mode="green" id="green-mode" class="dot theme-dot"></div>
+                </div>
+                <ul id="navigation">
+
+                    <li>
+                        <a href="/">Index</a>
+                    </li>
+                    <li>
+                        <a href="/api">Api</a>
+                    </li>
+                    <li>
+                        <a href="/editor">Live Editor</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="editor">
+                <div class="tools">
+                    <button run>run</button>
+                    <button clear>clear</button>
+                    <button copy>copy</button>
+                </div>
+                <div editor>
+                    <h2>Editor</h2>
+                    <div class="view"></div>
+
+                </div>
+                <div preview>
+                    <h2>Preview</h2>
+                    <div class="pview"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+    <script>
+        const themeDots = document.querySelectorAll('.theme-dot')
+
+        theme = localStorage.getItem('tesla-site-theme')
+        if (theme) {
+            setTheme(theme)
+        }
+
+        ;
+        [...themeDots].forEach(dot => {
+            dot.addEventListener('click', () => {
+                let mode = dot.dataset.mode
+                setTheme(mode)
+            })
+        })
+
+
+        function setTheme(mode) {
+            localStorage.setItem('tesla-site-theme', mode)
+            let themeStyle = document.getElementById('theme-style')
+            themeStyle.href = `{{ static_url('css/${mode}.css') }}`
+
+
+        }
+    </script>
+</body>
+
+</html>

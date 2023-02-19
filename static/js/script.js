@@ -53,7 +53,7 @@ let a = [
     [0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
-
+if (boxWrapper) {
 a.forEach(row => {
     let r = document.createElement('div')
     r.className = 'row'
@@ -63,7 +63,6 @@ a.forEach(row => {
         dot.className = 'mp-dot'
         if(d == 1){
             dot.classList.add("cl")
-            console.log(f)
             f = !f
 
         }
@@ -79,6 +78,7 @@ a.forEach(row => {
     boxWrapper.appendChild(r)
     
 });
+}
 
 
 const loading = document.querySelector('.loading')

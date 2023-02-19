@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,38 +13,41 @@
 
     <script src="{{ static_url('js/script.js') }}" defer></script>
 </head>
+
 <body>
-<div class="loading">
-    <h3>Welcome here...</h3>
-    <p>In the Name of Allah, the Most
-        Gracious, the Most Merciful.</p>
-    <p>All Jhe praises and thanks be to Allah,
-        the Lord of the 'Alamin (mankind, jinn and
-        all that exists).</p>
-    <p>The Most Gracious, the Most Merciful.</p>
-    <p>The Only Owner (and the Only Ruling Judge) of the Day of Recompense (i.e. the
-        Day of Resurrection).</p>
-    
-    <p>You (Alone) we worship, and You
-        (Alone) we ask for help (for each and
-        everything).</p>
-    <p>Guide us to the Straight Way.</p>
-    <p>The Way of those on whom You have
-        bestowed Your Grace, not (the way) of
-        those who earned Your Anger.</p>
-    <hr>
-    <p>
-        <a href="/">Reload if nothing happens.</a>
-    </p>
-    <p><[*]-{*}></p>
-</div>
+    <div class="loading">
+        <h3>Welcome here...</h3>
+        <p>In the Name of Allah, the Most
+            Gracious, the Most Merciful.</p>
+        <p>All Jhe praises and thanks be to Allah,
+            the Lord of the 'Alamin (mankind, jinn and
+            all that exists).</p>
+        <p>The Most Gracious, the Most Merciful.</p>
+        <p>The Only Owner (and the Only Ruling Judge) of the Day of Recompense (i.e. the
+            Day of Resurrection).</p>
+
+        <p>You (Alone) we worship, and You
+            (Alone) we ask for help (for each and
+            everything).</p>
+        <p>Guide us to the Straight Way.</p>
+        <p>The Way of those on whom You have
+            bestowed Your Grace, not (the way) of
+            those who earned Your Anger.</p>
+        <hr>
+        <p>
+            <a href="/">Reload if nothing happens.</a>
+        </p>
+        <p>
+            <[*]-{*}>
+        </p>
+    </div>
     <section class="s1">
         <div class="main-container">
-            
+
             <div class="greeting-wrapper">
                 <h1>Hey! I'm Jafar Idris Tesla</h1>
             </div>
-          {% include 'components/nav.html' %}
+            {% include 'components/nav.html' %}
         </div>
     </section>
 
@@ -54,10 +58,12 @@
                     <h4>More about me</h4>
                     <p>I built project just to trickle my brain and love teaching others how they're made.</p>
                     <p>This website is built with Tesla web,one of my great project.</p>
-                    <p>while i keep busy studying my boring course, I still take interviews in search of great teams & projects that interest me</p>
+                    <p>while i keep busy studying my boring course, I still take interviews in search of great teams &
+                        projects that interest me</p>
                     <hr>
                     <h4>TOP EXPERTISE</h4>
-                    <p>Fullstack developer with primary focus on Django + React: <a href="{{ static_url('resume/resume.docx') }}" download>Download Resume</a></p>
+                    <p>Fullstack developer with primary focus on Django + React: <a
+                            href="{{ static_url('resume/resume.docx') }}" download>Download Resume</a></p>
                     <div id="skills">
                         <ul>
                             <li>Python</li>
@@ -78,7 +84,7 @@
                 </div>
 
                 <div class="boxs-wrapper">
-                    
+
                 </div>
             </div>
         </div>
@@ -118,31 +124,32 @@
         </div>
     </section> -->
 
-  {% include 'components/footer.html' %}
-<script>
-    
-const themeDots = document.querySelectorAll('.theme-dot')
+    {% include 'components/footer.html' %}
+    <script>
+        const themeDots = document.querySelectorAll('.theme-dot')
 
-theme = localStorage.getItem('tesla-site-theme')
-if(theme){
-    setTheme(theme)
-}
+        theme = localStorage.getItem('tesla-site-theme')
+        if (theme) {
+            setTheme(theme)
+        }
 
-;[...themeDots].forEach(dot => {
-    dot.addEventListener('click', () => {
-        let mode = dot.dataset.mode
-        setTheme(mode)
-    })
-})
+        ;
+        [...themeDots].forEach(dot => {
+            dot.addEventListener('click', () => {
+                let mode = dot.dataset.mode
+                setTheme(mode)
+            })
+        })
 
 
-function setTheme(mode){
-    localStorage.setItem('tesla-site-theme', mode)
-     let themeStyle = document.getElementById('theme-style')
-     themeStyle.href = `{{ static_url('css/${mode}.css') }}`
-     console.log(themeStyle)
+        function setTheme(mode) {
+            localStorage.setItem('tesla-site-theme', mode)
+            let themeStyle = document.getElementById('theme-style')
+            themeStyle.href = `{{ static_url('css/${mode}.css') }}`
 
-}
-</script>
+
+        }
+    </script>
 </body>
+
 </html>
