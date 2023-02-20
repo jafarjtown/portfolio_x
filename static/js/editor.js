@@ -45,16 +45,16 @@ setTimeout(()=> loading.style.display = 'none', 5000)
 
 
 editor.addEventListener('keydown', (e) => {
-    // console.log(e.code)
-    switch (e.code) {
-        case "Enter":
+    // console.log(e.keyCode)
+    switch (e.keyCode) {
+        case 13:
             e.preventDefault()
             newInputField()
             break;
-        case 'ArrowUp':    
+        case 38:    
             goUp() 
             break; 
-        case 'ArrowDown': 
+        case 40: 
             goDown() 
             break;   
         default:
