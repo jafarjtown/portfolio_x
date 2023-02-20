@@ -462,16 +462,32 @@ div[editor] > h2, div[preview] > h2{
     padding: 5px 2px;
     border-bottom: 1px solid var(--borderColor);
 }
-.alert{
-    position: absolute;
-    width: 400px;
-    background-color: var(--borderColor);
-    color: var(--mainColor);
-    top: 50px;
-    left: 50%;
-    transform: translate(-50%);
-    padding: 20px;
 
+.theme-desc{
+    color: var(--manText);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.highlighter{
+    background-color: rgba(255, 0, 0, 0);
+    position: absolute;
+    z-index: 99999;
+    box-shadow: 19px 9px 19px 99990px rgb(0 0 0 / 87%);
+    border-radius: 5px;
+}
+.highlighter > button{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.highlighter > p{
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    width: 100px;
+    color: black;
+    border-radius: 5px;
 }
 @media screen and (max-width: 1200px) {
     .main-container{
@@ -481,6 +497,9 @@ div[editor] > h2, div[preview] > h2{
     
 }
 @media screen and (max-width: 800px) {
+    .theme-desc{
+        display: none;
+    }
     .editor{
         display: grid;
         grid-template-columns: 1fr;

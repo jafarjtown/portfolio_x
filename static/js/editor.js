@@ -38,7 +38,11 @@ inp.setAttribute('focus', true)
 editor.appendChild(inp.getHTML())
 inp.focus()
 
-setTimeout(()=> document.querySelector('.alert').style.display = 'none', 4000)
+const loading = document.querySelector('.loading')
+
+setTimeout(()=> loading.style.display = 'none', 5000)
+
+
 
 editor.addEventListener('keydown', (e) => {
     // console.log(e.code)
