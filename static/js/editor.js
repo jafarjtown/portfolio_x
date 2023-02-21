@@ -1,22 +1,56 @@
 const editor = document.querySelector('.view')
 let linesinput = []
-class Input{
-    constructor(){
+let cursor = 0
+
+class Word{
+    constructor(word, id=1){
+        console.log(word)
+        this.word = word 
+        this.id = id
+        this.font = document.createElement('font') 
+        
+    }
+    html(){
+        if(this.word == 'import'){
+            this.font.color = 'red'
+        }
+        this.font.innerText = this.word
+        return this.font
+    }
+}
+
+class Input {
+    constructor() {
         this.nextLine = null
         this.previousLine = null
         this.wdiv = document.createElement('div')
         this.label = document.createElement('div')
-        this.label.className ='number'
-        this.lineNumber = 0 
+        this.label.className = 'number'
+        this.lineNumber = 0
         this.input = document.createElement('p')
         this.input.className = 'input'
+        this.input.spellcheck = false
         this.input.contentEditable = true
+        this.content_length = 0
+        this.input.addEventListener('keydown', (e) => {
+            cursor = cursor_position()
+            this.content_length = this.input.innerText.length
+        })
+        this.input.addEventListener('focus', () => {
+            for (let i of linesinput) {
+                i.setAttribute('focus', false)
+            }
+            this.focus()
+            this.setAttribute('focus', true)
+        })
 
         this.wdiv.append(this.label, this.input)
+
+
     }
 
     line = (a) => {
-        this.lineNumber = a 
+        this.lineNumber = a
         this.label.innerText = a
     }
     setAttribute = (name, value) => {
@@ -28,7 +62,19 @@ class Input{
     getHTML = () => {
         return this.wdiv
     }
-    focus = () => this.input.focus()
+    focus = () => {
+        this.input.focus()
+    }
+    format_code = () => {
+        this.input.innerHTML = null
+        for(let i = 0; i < this.nodes.length; i++){
+            let node = this.nodes[i]
+            console.log(this.words[i], node)
+            node.word = this.words[i]
+            this.input.append(node.html())
+        } 
+    }
+
 }
 let inp = new Input()
 linesinput.push(inp)
@@ -40,66 +86,67 @@ inp.focus()
 
 const loading = document.querySelector('.loading')
 
-setTimeout(()=> loading.style.display = 'none', 5000)
-
 
 
 editor.addEventListener('keydown', (e) => {
-    // console.log(e.keyCode)
+    cursor = cursor_position()
     switch (e.keyCode) {
         case 13:
             e.preventDefault()
             newInputField()
             break;
-        case 38:    
-            goUp() 
-            break; 
-        case 40: 
-            goDown() 
-            break;   
+        case 38:
+            goUp()
+            break;
+        case 40:
+            goDown()
+            break;
         default:
             break;
     }
 
 })
 
-function newInputField(){
+function newInputField() {
     let allInput = editor.querySelectorAll('.input')
     curr = editor.querySelector('[focus=true]')
-    allInput.forEach(i => i.setAttribute('focus', false))
-    // allInput = Array(allInput)
-    // allInput
+    allInput.forEach(i => {
+        i.setAttribute('focus', false)
+    })
     let number = allInput.length
     let p = new Input()
-    
-    // console.log(curr)
     line = 1
     if (curr) {
         line = curr.getAttribute('line')
-        } 
-    if (line < number) {
-
-        linesinput = appendInput(p, line, linesinput)
+    }
+    if (line <= number) {
+        if (curr.innerText.length > cursor) {
+            let code = curr.innerText
+            let oldline = code.slice(0, cursor)
+            let newline = code.slice(cursor)
+            p.input.innerText = newline
+            curr.innerText = oldline
         }
-    else{
+        linesinput = appendInput(p, line, linesinput)
+    } else {
         linesinput.push(p)
     }
-    p.line(number+1)
-    p.setAttribute('line', number+1)
-    p.setAttribute('focus', true)
-    let n = 1 
+    p.line(number + 1)
+    p.setAttribute('line', number + 1)
+    let n = 1
     for (const a of linesinput) {
         a.line(n)
         a.setAttribute('line', n)
+        a.setAttribute('focus', false)
         editor.appendChild(a.getHTML())
         n++
-        } 
+    }
+    p.setAttribute('focus', true)
     p.focus()
 
-    // newInput.focus()
 }
-function goUp(){
-    // let allInput = editor.querySelectorAll('.input')
+
+function goUp() {
     curr = editor.querySelector('[focus=true]')
     line = curr.getAttribute('line')
     toLine = editor.querySelector(`[line="${Number(line)-1}"]`)
@@ -109,8 +156,8 @@ function goUp(){
         toLine.focus()
     }
 }
-function goDown(){
-    // let allInput = editor.querySelectorAll('.input')
+
+function goDown() {
     curr = editor.querySelector('[focus=true]')
     line = curr.getAttribute('line')
     toLine = editor.querySelector(`[line="${Number(line)+1}"]`)
@@ -120,10 +167,10 @@ function goDown(){
         curr.setAttribute('focus', false)
         toLine.focus()
     }
-   
+
 }
 
-function appendInput(input, index, arr){
+function appendInput(input, index, arr) {
     let n = []
     f = arr.slice(0, index)
     p = arr.slice(index)
@@ -145,17 +192,17 @@ runbtn.onclick = async () => {
         code.push(element.innerText)
     });
     let formdata = new FormData()
-    
+
     formdata.append('code', code.join('_'))
     runbtn.innerText = 'running ...'
     const response = await fetch('/api_v1/code', {
-        method : 'POST',
-        body : formdata
+        method: 'POST',
+        body: formdata
     })
     const data = await response.json()
     for (const d of data) {
         addtopreview(d)
-        
+
     }
     addtopreview('[Program finished]')
     runbtn.innerText = 'run'
@@ -163,27 +210,28 @@ runbtn.onclick = async () => {
 
 clearbtn.onclick = () => clearEditor()
 copybtn.onclick = () => copycode()
-function addtopreview(data){
+
+function addtopreview(data) {
     let p = document.createElement('p')
     p.innerText = data
     preview.appendChild(p)
 }
 
 
-function clearEditor(){
+function clearEditor() {
     editor.innerHTML = ''
     preview.innerHTML = ''
     linesinput = []
     let inp = new Input()
-linesinput.push(inp)
-inp.line(1)
-inp.setAttribute('line', 1)
-inp.setAttribute('focus', true)
-editor.appendChild(inp.getHTML())
-inp.focus()
+    linesinput.push(inp)
+    inp.line(1)
+    inp.setAttribute('line', 1)
+    inp.setAttribute('focus', true)
+    editor.appendChild(inp.getHTML())
+    inp.focus()
 }
 
-function copycode(){
+function copycode() {
     let allInput = editor.querySelectorAll('.input')
     let code = ''
     for (const inp of allInput) {
@@ -192,5 +240,14 @@ function copycode(){
     }
     window.navigator.clipboard.writeText(code)
     copybtn.innerText = 'copied'
-    setTimeout(()=> copybtn.innerText = 'copy', 500) 
+    setTimeout(() => copybtn.innerText = 'copy', 500)
+}
+
+function cursor_position() {
+    var sel = document.getSelection();
+    sel.modify("extend", "backward", "paragraphboundary");
+    var pos = sel.toString().length;
+    if (sel.anchorNode != undefined) sel.collapseToEnd();
+
+    return pos;
 }

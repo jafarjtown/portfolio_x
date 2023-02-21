@@ -5,42 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jafar</title>
+    <title>Jafar Idris | 404 page</title>
+    <link rel="shortcut icon" href="{{ static_url('imgs/icon.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ static_url('css/default.min.css') }}">
 
     <link id="theme-style" rel="stylesheet" href="">
 
-    <script src="{{ static_url('js/script.min.js') }}" defer></script>
+    <script src="{{ static_url('js/script.js') }}" defer></script>
+    <script src="{{ static_url('js/highlighter.js') }}" ></script>
 </head>
 
 <body>
-
     <section class="s1">
         <div class="main-container">
 
             <div class="greeting-wrapper">
-                <h1>Hey! i'm Jafar Tesla</h1>
+                <h1>404 | page Not Found</h1>
             </div>
             {% include 'components/nav.html' %}
-        </div>
-    </section>
-
-    <section class="s2">
-        <div class="main-container">
-            <p>
-                API links about me.
-            </p>
-            <p><code class="link-code"><span>/api_v1/info </span><a href="/api_v1/info"
-                        target="_blank">visit</a><button>copy</button></code></p>
-            <p>links for my social accounts.</p>
-
-            <p><code class="link-code"><span>/api_v1/about </span><a href="/api_v1/about"
-                        target="_blank">visit</a><button>copy</button></code></p>
-            <p>a brief about me.</p>
-
-            <p><code class="link-code"><span>/api_v1/skills </span><a href="/api_v1/skills"
-                        target="_blank">visit</a><button>copy</button></code></p>
-            <p>languages, frameworks ... which i can work with.</p>
         </div>
     </section>
 
@@ -68,6 +50,11 @@
             themeStyle.href = `{{ static_url('css/${mode}.css') }}`
 
 
+        }
+        const highlighter = new Highligter(['[nav]', '[links]', '[wall]'],['place to change your theme','navigate the site here', 'this is my picture...'])
+        if(!localStorage.getItem('highlight')){
+            window.addEventListener('scroll', ()=> highlighter.update())
+            highlighter.start()
         }
     </script>
 </body>

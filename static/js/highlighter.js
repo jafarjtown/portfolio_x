@@ -18,27 +18,27 @@ class Highligter{
     run(){
         let curr = this.current.getBoundingClientRect()
         
-        // let x = curr.top - document.documentElement.scrollTop
         let x = this.current.offsetTop
         let y = this.current.offsetLeft
         this.tag.style.top = `${x-6}px`
         this.tag.style.left = `${y-6}px`
         this.tag.style.width = `${curr.width+8}px`
         this.tag.style.height = `${curr.height+8}px`
-
+        this.label.style = null
         if(x<100){
             this.label.style.top = `${x + 10}px`
         }
-        else this.label.style.bottom = `${curr.height + 10}px`
+        else {this.label.style.bottom = `${curr.height + 10}px`}
         if(y < 100){
             this.label.style.left = `${y + 10}px`
-        }else this.label.style.right = `${curr.width + 10}px`
+        }else {this.label.style.right = `${curr.width + 10}px`}
         
     }
     next(){
         this.index++
         if(this.index == this.selectors.length){
-            document.body.removeChild(this.tag)
+            // document.body.removeChild(this.tag)\
+            this.tag.classList.remove('run')
             window.removeEventListener('scroll', () => this.update())
             this.index = 0
             this.current = null
@@ -54,12 +54,13 @@ class Highligter{
     update(){
         this.run()
     }
+    start(){
+        this.tag.classList.add('run')
+        this.index = 0
+        this.current = document.querySelector(this.selectors[this.index])
+        this.run()
+    }
 
 }
 
 
-if(!localStorage.getItem('highlight')){
-    const highlighter = new Highligter(['[nav]', '[links]', '[wall]'],['place to change your theme','navigate the site here', 'this is my picture...'])
-    window.addEventListener('scroll', ()=> highlighter.update())
-    highlighter.run()
-}

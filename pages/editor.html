@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jafar Idris</title>
     <link rel="shortcut icon" href="{{ static_url('imgs/icon.jpg') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ static_url('css/default.css') }}">
-
+    <link rel="stylesheet" href="{{ static_url('css/default.min.css') }}">
     <link id="theme-style" rel="stylesheet" href="">
+    <script src="{{ static_url('js/highlighter.min.js') }}" ></script>
+    <script src="{{ static_url('js/editor.min.js') }}" defer></script>
 
-    <!-- <script src="{{ static_url('js/script.js') }}" defer></script> -->
-    <script src="{{ static_url('js/editor.js') }}" defer></script>
 </head>
 
 <body>
@@ -21,9 +20,11 @@
         <p>things you can't do here</p>
         <ul>
             <li>use input()</li>
+            <li>use _ as variable</li>
         </ul>
         <p></p>
     </div>
+    
     <section class="s1">
         <div class="main-container">
             <div class="nav-wrapper" id="nav">
@@ -31,6 +32,7 @@
                     <div data-mode="light" id="light-mode" class="dot theme-dot"></div>
                     <div data-mode="blue" id="blue-mode" class="dot theme-dot"></div>
                     <div data-mode="green" id="green-mode" class="dot theme-dot"></div>
+                    <button highlight-toggler>guide</button>
                 </div>
                 <ul id="navigation">
 
@@ -54,8 +56,10 @@
                 </div>
                 <div editor>
                     <h2>Editor</h2>
-                    <div class="view"></div>
-
+                    <div class="view">
+                        
+                    </div>
+                    
                 </div>
                 <div preview>
                     <h2>Preview</h2>
@@ -92,6 +96,23 @@
 
 
         }
+        const highlighter = new Highligter([
+        '[run]', 
+        '[clear]', 
+        '[copy]',
+        '[editor]',
+        '[preview]'
+        ],
+        ['you can run your code by pressing here','clear the editor and console', 'copy the code written on the editor','write your code here', 'your outcome will be here'])
+        if(!localStorage.getItem('highlight')){
+            window.addEventListener('scroll', ()=> highlighter.update())
+            highlighter.start()
+        }
+        document.querySelector('[highlight-toggler]').onclick = () => highlighter.start()
+
+        
+setTimeout(()=> loading.style.display = 'none', 5000)
+
     </script>
 </body>
 

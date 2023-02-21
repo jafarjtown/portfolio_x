@@ -33,15 +33,16 @@ def info(req):
     return s
 
 p = print
+
 def code(req):
     import re, itertools, string
     results = []
     
      
     
-    def print(*args, **kwargs):
-        for a in args:
-            results.append(f'{a}')
+    def print(*args, end='\n', sep=', '):
+        args = [f'{a}' for a in args]
+        results.append(sep.join(args) + end)
 
     
     if req.method == 'POST':
@@ -54,4 +55,4 @@ def code(req):
             import traceback
             print(traceback.format_exc())    
         
-    return results    
+    return ''.join(results).split('\n')    
